@@ -7,4 +7,13 @@
 -quiet 
 -windowtitle 'cj.netos.x.dealmaking.plugin.XEngine 1.0.0 API'
 '/Users/caroceanjofers/studio/github/cj.netos.x.dealmaking/cj.netos.x.dealmaking.plugin.XEngine/src/cj/netos/x/dealmaking/plugin/XEngine/GatewayAppSitePlugin.java'
+'/Users/caroceanjofers/studio/github/cj.netos.x.dealmaking/cj.netos.x.dealmaking.plugin.XEngine/src/cj/netos/x/dealmaking/plugin/XEngine/ICBankEngine.java'
+'/Users/caroceanjofers/studio/github/cj.netos.x.dealmaking/cj.netos.x.dealmaking.plugin.XEngine/src/cj/netos/x/dealmaking/plugin/XEngine/CBankEngine.java'
+'/Users/caroceanjofers/studio/github/cj.netos.x.dealmaking/cj.netos.x.dealmaking.plugin.XEngine/src/cj/netos/x/dealmaking/plugin/XEngine/IDealmakingQueueTask.java'
+'/Users/caroceanjofers/studio/github/cj.netos.x.dealmaking/cj.netos.x.dealmaking.plugin.XEngine/src/cj/netos/x/dealmaking/plugin/XEngine/DealmakingQueueTask.java'
 '/Users/caroceanjofers/studio/github/cj.netos.x.dealmaking/cj.netos.x.dealmaking.plugin.XEngine/src/cj/netos/x/dealmaking/plugin/XEngine/DealmakingEngineEntrypointActivitor.java'
+'/Users/caroceanjofers/studio/github/cj.netos.x.dealmaking/cj.netos.x.dealmaking.plugin.XEngine/src/cj/netos/x/dealmaking/plugin/XEngine/bs/CBankInitializer.java'
+'/Users/caroceanjofers/studio/github/cj.netos.x.dealmaking/cj.netos.x.dealmaking.plugin.XEngine/src/cj/netos/x/dealmaking/plugin/XEngine/bs/CBankPutonOrderQueueBS.java'
+'/Users/caroceanjofers/studio/github/cj.netos.x.dealmaking/cj.netos.x.dealmaking.plugin.XEngine/src/cj/netos/x/dealmaking/plugin/XEngine/bs/CBankBidOrderQueueBS.java'
+'/Users/caroceanjofers/studio/github/cj.netos.x.dealmaking/cj.netos.x.dealmaking.plugin.XEngine/src/cj/netos/x/dealmaking/plugin/XEngine/db/CBankStore.java'
+'/Users/caroceanjofers/studio/github/cj.netos.x.dealmaking/cj.netos.x.dealmaking.plugin.XEngine/src/cj/netos/x/dealmaking/plugin/XEngine/db/ICBankStore.java'

@@ -11,27 +11,27 @@ import cj.studio.ecm.IServiceSite;
 
 public class CBankEngine implements ICBankEngine {
 	Map<String, Future<?>> futures;
-	IQueueEvent buyOrderQueueEvent;
-	IQueueEvent sellOrderQueueEvent;
+	IQueueEvent bidOrderQueueEvent;
 	ExecutorService bankWorks;// 每个线程负责处理一个市场，如果处理完交易则释放线程
 	IServiceSite site;
+	private IQueueEvent putonOrderQueueEvent;
 
 	public CBankEngine(IServiceSite site) {
 		futures = new ConcurrentHashMap<String, Future<?>>();
 		this.site = site;
 		this.bankWorks = Executors.newCachedThreadPool();
-		this.buyOrderQueueEvent = createBuyOrderQueueEvent();
-		this.sellOrderQueueEvent = createSellOrderQueueEvent();
+		this.bidOrderQueueEvent = createBidOrderQueueEvent();
+		this.putonOrderQueueEvent = createPutonOrderQueueEvent();
 	}
 
 	@Override
-	public IQueueEvent buyOrderQueueEvent() {
-		return buyOrderQueueEvent;
+	public IQueueEvent putonOrderQueueEvent() {
+		return putonOrderQueueEvent;
 	}
 
 	@Override
-	public IQueueEvent sellOrderQueueEvent() {
-		return sellOrderQueueEvent;
+	public IQueueEvent bidOrderQueueEvent() {
+		return bidOrderQueueEvent;
 	}
 
 	@Override
@@ -57,25 +57,25 @@ public class CBankEngine implements ICBankEngine {
 		this.site = null;
 	}
 
-	protected IQueueEvent createSellOrderQueueEvent() {
+	protected IQueueEvent createPutonOrderQueueEvent() {
 		return new IQueueEvent() {
 
 			@Override
 			public void onevent(String action, Object... args) {
-				if("offer".equals(action)) {
-					runCBank((String)args[0]);
+				if ("offer".equals(action)) {
+					runCBank((String) args[0]);
 				}
 			}
 		};
 	}
 
-	protected IQueueEvent createBuyOrderQueueEvent() {
+	protected IQueueEvent createBidOrderQueueEvent() {
 		return new IQueueEvent() {
 
 			@Override
 			public void onevent(String action, Object... args) {
-				if("offer".equals(action)) {
-					runCBank((String)args[0]);
+				if ("offer".equals(action)) {
+					runCBank((String) args[0]);
 				}
 			}
 		};

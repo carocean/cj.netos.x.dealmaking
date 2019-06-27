@@ -4,11 +4,13 @@ import cj.netos.x.dealmaking.bs.IQueueEvent;
 
 public interface ICBankEngine {
 
-	IQueueEvent buyOrderQueueEvent();
+	IQueueEvent bidOrderQueueEvent();
 
-	IQueueEvent sellOrderQueueEvent();
+
+	IQueueEvent putonOrderQueueEvent();
 
 	void runCBank(String bank);
+
 	void stop();
-	
+
 }

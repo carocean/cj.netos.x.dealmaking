@@ -2,9 +2,9 @@ package cj.netos.x.dealmaking.plugin.XEngine;
 
 import java.util.List;
 
-import cj.netos.x.dealmaking.bs.ICBankBuyOrderQueueBS;
+import cj.netos.x.dealmaking.bs.ICBankBidOrderQueueBS;
 import cj.netos.x.dealmaking.bs.ICBankInitializer;
-import cj.netos.x.dealmaking.bs.ICBankSellOrderQueueBS;
+import cj.netos.x.dealmaking.bs.ICBankPutonOrderQueueBS;
 import cj.studio.ecm.IChip;
 import cj.studio.ecm.IEntryPointActivator;
 import cj.studio.ecm.IServiceSite;
@@ -16,10 +16,10 @@ public class DealmakingEngineEntrypointActivitor implements IEntryPointActivator
 	@Override
 	public void activate(IServiceSite site, IElement args) {
 		engine=new CBankEngine(site);
-		ICBankBuyOrderQueueBS marketBuyOrderQueueBS = (ICBankBuyOrderQueueBS) site.getService("cbankBuyOrderQueueBS");
-		ICBankSellOrderQueueBS marketSellOrderQueueBS = (ICBankSellOrderQueueBS) site.getService("cbankSellOrderQueueBS");
-		marketBuyOrderQueueBS.onevent(engine.buyOrderQueueEvent());
-		marketSellOrderQueueBS.onevent(engine.sellOrderQueueEvent());
+		ICBankBidOrderQueueBS cbankBidOrderQueueBS = (ICBankBidOrderQueueBS) site.getService("cbankBidOrderQueueBS");
+		ICBankPutonOrderQueueBS cbankPutonOrderQueueBS = (ICBankPutonOrderQueueBS) site.getService("cbankPutonOrderQueueBS");
+		cbankBidOrderQueueBS.onevent(engine.bidOrderQueueEvent());
+		cbankPutonOrderQueueBS.onevent(engine.putonOrderQueueEvent());
 		
 		IChip chip = (IChip) site.getService(IChip.class.getName());
 		String dealmakingEngineID = chip.info().getId();

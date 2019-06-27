@@ -1,14 +1,13 @@
 package cj.netos.x.dealmaking.bs;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import cj.netos.x.dealmaking.args.PutonOrderStock;
 
 public interface ICBankPutonOrderQueueBS {
-	static String TABLE_queue_putonOrder = "queue.putons";
+	static String TABLE_queue_putonOrder = "queue.puts";
 
-	void offer(String bank, PutonOrderStock buyOrderStock);
+	void offer(String bank, PutonOrderStock stock);
 	void onevent(IQueueEvent e);
 	PutonOrderStock peek(String bank);
 
@@ -16,7 +15,7 @@ public interface ICBankPutonOrderQueueBS {
 
 	void remove(String bank, String stockno);
 
-	void updateAmount(String bank, String stockno, BigDecimal amount);
+	void updateQuantities(String bank, String stockno, long quantities);
 
-	List<PutonOrderStock> listFiveBuyingWindow(String bank);
+	List<PutonOrderStock> listFivePuttingWindow(String bank);
 }
