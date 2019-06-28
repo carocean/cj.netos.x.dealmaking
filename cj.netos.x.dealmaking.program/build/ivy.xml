@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivy-module version="2.0" xmlns:m="http://ant.apache.org/ivy/maven">
-  <info organisation="cj.netos.x.dealmaking" module="cj.netos.x.dealmaking.program" revision="1.0.0" status="integration" publication="20190628003616">
+  <info organisation="cj.netos.x.dealmaking" module="cj.netos.x.dealmaking.program" revision="1.0.0" status="integration" publication="20190628220442">
     <description/>
   </info>
   <configurations>

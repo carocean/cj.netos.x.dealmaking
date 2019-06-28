@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivy-module version="2.0" xmlns:m="http://ant.apache.org/ivy/maven">
-  <info organisation="cj.netos.x.dealmaking" module="cj.netos.x.dealmaking.plugin.XEngine" revision="1.0.0" status="integration" publication="20190628003616">
+  <info organisation="cj.netos.x.dealmaking" module="cj.netos.x.dealmaking.plugin.XEngine" revision="1.0.0" status="integration" publication="20190628220440">
     <description/>
   </info>
   <configurations>
@@ -28,6 +28,7 @@
     <dependency org="cj.netos.x.dealmaking" name="cj.netos.x.dealmaking.stub" rev="1.0.0" conf="compile-&gt;default"/>
     <dependency org="cj.studio.util.reactor" name="cj.studio.util.reactor.ultimate" rev="1.0.0" conf="compile-&gt;default"/>
     <dependency org="cj.studio.util.reactor" name="cj.studio.util.reactor.impl" rev="1.0.0" conf="compile-&gt;default"/>
+    <dependency org="cj.netos.contractbank" name="cj.netos.contractbank.stub" rev="1.0.0" conf="compile-&gt;default"/>
     <dependency org="junit" name="junit" rev="4.8.2" conf="testCompile-&gt;default"/>
   </dependencies>
 </ivy-module>

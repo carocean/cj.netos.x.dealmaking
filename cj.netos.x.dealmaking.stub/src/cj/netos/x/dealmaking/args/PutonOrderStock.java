@@ -6,9 +6,10 @@ public class PutonOrderStock {
 	String no;//存量号
 	String orderno;//投放单号
 	String putter;
-	Actor actor;//卖方或采购方
+	DealType dealType;//卖方或采购方
 	long puttingQuantities;//商品个数
 	BigDecimal puttingPrice;//想卖的价格
+	BigDecimal cashDepositRate;// 保证金率
 	BigDecimal bondQuantities;//投放者通过保证金换取的债量
 	long otime;//委托时间
 	public String getNo() {
@@ -16,6 +17,12 @@ public class PutonOrderStock {
 	}
 	public void setNo(String no) {
 		this.no = no;
+	}
+	public BigDecimal getCashDepositRate() {
+		return cashDepositRate;
+	}
+	public void setCashDepositRate(BigDecimal cashDepositRate) {
+		this.cashDepositRate = cashDepositRate;
 	}
 	public String getOrderno() {
 		return orderno;
@@ -30,11 +37,11 @@ public class PutonOrderStock {
 	public void setPutter(String putter) {
 		this.putter = putter;
 	}
-	public Actor getActor() {
-		return actor;
+	public DealType getDealType() {
+		return dealType;
 	}
-	public void setActor(Actor actor) {
-		this.actor = actor;
+	public void setDealType(DealType dealType) {
+		this.dealType = dealType;
 	}
 	public long getPuttingQuantities() {
 		return puttingQuantities;

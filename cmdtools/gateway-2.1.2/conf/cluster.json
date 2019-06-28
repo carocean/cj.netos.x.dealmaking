@@ -1,1 +1,1 @@
-{"valids":[{"name":"xdm","uris":["app://x-dealmaking:way"],"props":{}}],"invalids":[]}
+{"valids":[{"name":"xdm","uris":["app://x-dealmaking:way"],"props":{}},{"name":"/remote/cbank/","uris":["http://localhost:11106"],"props":{}}],"invalids":[]}

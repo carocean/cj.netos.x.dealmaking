@@ -9,12 +9,19 @@ public class BidOrderStock {
 	long biddingQuantities;//商品个数
 	BigDecimal biddingPrice;
 	BigDecimal bondQuantities;//买方通过保证金换取的债量
+	BigDecimal cashDepositRate;// 保证金率
 	long otime;//委托买入时间
 	public String getNo() {
 		return no;
 	}
 	public void setNo(String no) {
 		this.no = no;
+	}
+	public BigDecimal getCashDepositRate() {
+		return cashDepositRate;
+	}
+	public void setCashDepositRate(BigDecimal cashDepositRate) {
+		this.cashDepositRate = cashDepositRate;
 	}
 	public String getOrderno() {
 		return orderno;
