@@ -11,10 +11,17 @@ public class DeliverContract {
 	String bidorderno;
 	long thingsQuantities;
 	BigDecimal dealPrice;//成交价
-	BigDecimal demandAmount;//需要再交的资金
+	BigDecimal payableAmount;//除了保证金还要应付给对方的资金,当dealType是商品模式时，是竞拍者付款给投放者；当为服务模式时，是投放者付款给竞拍者
 	long expiredTimeWin;//交割时间窗
 	BigDecimal breakRate;//违约处罚率
 	BigDecimal breakAmount;//违约罚金
+	DealType dealType;
+	public DealType getDealType() {
+		return dealType;
+	}
+	public void setDealType(DealType dealType) {
+		this.dealType = dealType;
+	}
 	public String getCode() {
 		return code;
 	}
@@ -63,11 +70,11 @@ public class DeliverContract {
 	public void setDealPrice(BigDecimal dealPrice) {
 		this.dealPrice = dealPrice;
 	}
-	public BigDecimal getDemandAmount() {
-		return demandAmount;
+	public BigDecimal getPayableAmount() {
+		return payableAmount;
 	}
-	public void setDemandAmount(BigDecimal demandAmount) {
-		this.demandAmount = demandAmount;
+	public void setPayableAmount(BigDecimal payableAmount) {
+		this.payableAmount = payableAmount;
 	}
 	public long getExpiredTimeWin() {
 		return expiredTimeWin;

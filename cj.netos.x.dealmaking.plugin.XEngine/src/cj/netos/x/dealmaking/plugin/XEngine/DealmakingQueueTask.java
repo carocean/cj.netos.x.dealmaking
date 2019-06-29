@@ -51,8 +51,8 @@ public class DealmakingQueueTask implements IDealmakingQueueTask {
 			}
 			// 具有两种价格：投放价与现时卖价
 			// 供应算法：现卖价=投放价-奖金；采购算法：现卖价=投放价+奖金；
-			// TODO 下一步取出奖金
-			BigDecimal rewardAmount = new BigDecimal("0.00");// 现时奖金,
+			// TODO 下一步取出奖金，需要对接分账器，留给将来实现
+			BigDecimal rewardAmount = new BigDecimal("0.00");// 现时奖金,需要对接分账器，留给将来实现
 			BigDecimal nowSellingPrice = null;
 			if (DealType.goods == puton.getDealType()) {
 				nowSellingPrice = puton.getPuttingPrice().subtract(rewardAmount);
@@ -88,7 +88,7 @@ public class DealmakingQueueTask implements IDealmakingQueueTask {
 	}
 
 	/**
-	 * 交割供应合约（卖场+）
+	 * 交割供应合约（卖场+）,交割后由y-dealmaking引擎负责处理交割期状态，违约处理以及生成正式订单，并进入订单待收货期状态监控引擎
 	 */
 	protected void deliverySellerContract(BidOrderStock bid, PutonOrderStock put, BigDecimal nowSellingPrice) {
 		DeliverContract contract = new DeliverContract();
@@ -98,12 +98,14 @@ public class DealmakingQueueTask implements IDealmakingQueueTask {
 		contract.setDealPrice(nowSellingPrice);
 		contract.setPutonorderno(put.getNo());
 		contract.setPutter(put.getPutter());
+		contract.setDealType(DealType.goods);
+		//商品模式是bidder付钱给putter
 		// 每次成交一个商品，因此：投单扣1个，竞单扣1个。原因是：奖金每次用于1个商品降价是最快的
 		long subtractQuantities = 1;
 		contract.setThingsQuantities(subtractQuantities);// 购买的数量
-		// =现价-竞拍申购价*保证金率
-		BigDecimal demandAmount = nowSellingPrice.subtract(bid.getBiddingPrice().multiply(bid.getCashDepositRate()));
-		contract.setDemandAmount(demandAmount);// 要补交的款
+		// 应付款=现价-竞拍申购价*保证金率
+		BigDecimal payableAmount = nowSellingPrice.subtract(bid.getBiddingPrice().multiply(bid.getCashDepositRate()));
+		contract.setPayableAmount(payableAmount);// 要补交的款
 
 		CBankPolicy policy = this.cbankInitializer.getPolicy(cbank);
 		if (policy != null) {
@@ -129,10 +131,44 @@ public class DealmakingQueueTask implements IDealmakingQueueTask {
 	}
 
 	/**
-	 * 交割采购合约（服务厅+）
+	 * 交割采购合约（服务厅+）,交割后由y-dealmaking引擎负责处理交割期状态，违约处理以及生成正式订单，并进入订单待收货期状态监控引擎
 	 */
-	protected void deliveryPurchaserContract(BidOrderStock bid, PutonOrderStock sell, BigDecimal nowSellingPrice) {
-		// TODO Auto-generated method stub
+	protected void deliveryPurchaserContract(BidOrderStock bid, PutonOrderStock put, BigDecimal nowSellingPrice) {
+		DeliverContract contract = new DeliverContract();
+		contract.setBidder(bid.getBidder());
+		contract.setBidorderno(bid.getNo());
+		contract.setCtime(System.currentTimeMillis());
+		contract.setDealPrice(nowSellingPrice);
+		contract.setPutonorderno(put.getNo());
+		contract.setPutter(put.getPutter());
+		contract.setDealType(DealType.services);
+		//服务模式是putter付钱给bidder
+		// 每次成交一个服务，因此：投单扣1个，竞单扣1个。原因是：奖金每次用于1个服务升值是最快的
+		long subtractQuantities = 1;
+		contract.setThingsQuantities(subtractQuantities);// 购买的数量
+		// 应付款=投放申购价-投放申购价*保证金率
+		BigDecimal payableAmount = put.getPuttingPrice().subtract(put.getPuttingPrice().multiply(put.getCashDepositRate()));
+		contract.setPayableAmount(payableAmount);// 要补交的款
 
+		CBankPolicy policy = this.cbankInitializer.getPolicy(cbank);
+		if (policy != null) {
+			contract.setBreakRate(policy.getBreakRate());// 违约金率
+			contract.setExpiredTimeWin(policy.getExpiredTimeWin());
+		}
+		String code = this.deliveryContractBS.save(this.cbank, contract);
+		contract.setCode(code);
+
+		bid.setBiddingQuantities(bid.getBiddingQuantities() - subtractQuantities);
+		put.setPuttingQuantities(put.getPuttingQuantities() - subtractQuantities);
+		if (bid.getBiddingQuantities() <= 0) {
+			this.cbankBidOrderQueueBS.remove(cbank, bid.getNo());
+		} else {
+			this.cbankBidOrderQueueBS.updateQuantities(cbank, bid.getNo(), bid.getBiddingQuantities());
+		}
+		if (put.getPuttingQuantities() <= 0) {
+			cbankPutonOrderQueueBS.remove(cbank, put.getNo());
+		} else {
+			this.cbankPutonOrderQueueBS.updateQuantities(cbank, put.getNo(), put.getPuttingQuantities());
+		}
 	}
 }
